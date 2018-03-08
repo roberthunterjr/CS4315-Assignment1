@@ -9,9 +9,7 @@ class csvReader:
         self.attribute_list = []
     def read(self):
         myfile = self.fpath
-# myfile = '../Sources/Adult/adult.csv'
         with open(myfile, 'rb') as csvfile:
-            reader = csv.reader(csvfile, delimiter = ',')
             i = 0
             for line in csvfile:
                 if (i == 0):
@@ -20,13 +18,6 @@ class csvReader:
                     self.data.append(line.split(','))
                 i = i + 1
         return {'attributes': self.attribute_list, 'data': self.data}
-# print(i)
-# print(attribute_list)
-# # print(data)
-# classifier = attribute_list[-1]
-# print(classifier)
-# print(len(attribute_list))
-
 
 class dataSet:
     def __init__(self, data, attributes, label):
