@@ -17,6 +17,14 @@ class decisionTree:
         if currentDataSet.isLeaf():
             # print('Is leaf')
             Node(currentDataSet.getLabel() + 'Leaf', parent=parentNode)
+        # Start splitting tree and recursing
+        else:
+            splitting_attribute_index = currentDataSet.getSplitAttributeByGain()['attribute_index']
+            split_data = currentDataSet.splitDataOnAttribute(splitting_attribute_index)
+            for branch in split_data:
+                nodeLabel = branch.getLabel()
+                newNode = Node(name=nodeLabel, parent=parentNode)
+                self.generateBranches(branch, nodeLabel)
     def runTree(self):
         self.generateBranches(self.rootSet, self.rootNode)
         self.printTree()
