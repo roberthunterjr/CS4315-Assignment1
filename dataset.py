@@ -23,8 +23,26 @@ class dataSet:
 
     def getLabel(self):
         return self.label
-    # Returns a new dataset with the given indicies removed
 
+    # check to see if current dataSet is a leaf candidate
+    ## Leaf candidate should meet one of the following
+    ## 1. No tuples in the set
+    ## 2. No Attributes
+    ## 3. Pure (all the same class)
+    def isLeaf(self):
+        if len(self.data) == 0:
+            return True
+        if len(self.attributes) <= 1:
+            return True
+        # Check condition 3 by checking if all class entries equal the first class entry
+        testClass = self.data[0][-1]
+        for row in self.data:
+            if row[-1] != testClass:
+                return False
+        return True
+
+
+    # Returns a new dataset with the given indicies removed
     def pluck(self, indicies):
         newData = []
         newAttributes = []
