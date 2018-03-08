@@ -23,12 +23,14 @@ class decisionTree:
             split_data = currentDataSet.splitDataOnAttribute(splitting_attribute_index)
             for branch in split_data:
                 nodeLabel = branch.getLabel()
-                newNode = Node(name=nodeLabel, parent=parentNode)
-                self.generateBranches(branch, nodeLabel)
+                # nodeLabel = 'hey'
+                newNode = Node(nodeLabel, parent=parentNode)
+                self.generateBranches(branch, newNode)
     def runTree(self):
         self.generateBranches(self.rootSet, self.rootNode)
         self.printTree()
-records = CSVReader('../Sources/Adult/adult.csv').read()
+records = CSVReader('../Sources/Adult/adult.csv').read([1,3,4,5,6,7,8])
+print(records)
 recordSet = dataSet(records['data'], records['attributes'], 'root')
 testTree = decisionTree(recordSet)
 testTree.runTree()

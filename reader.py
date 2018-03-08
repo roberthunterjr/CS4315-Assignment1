@@ -6,16 +6,34 @@ class CSVReader:
         self.fpath = fpath
         self.data = []
         self.attribute_list = []
-    def read(self):
+        self.markedFields = []
+    def read(self,markedFields):
         myfile = self.fpath
         with open(myfile, 'rb') as csvfile:
-            i = 0
+            # first pass to trim
+            newData = []
             for line in csvfile:
-                if (i == 0):
-                    self.attribute_list = line.split(',')
-                else:
-                    self.data.append(line.split(','))
-                i = i + 1
+                newline = []
+                splitLine = line.split(',')
+                for i in range(len(splitLine) - 1):
+                    if i in markedFields:
+                        newline.append(splitLine[i])
+                # add classifier filed to new line
+                newline.append(splitLine[-1])
+                newData.append(newline)
+            # Now lines
+            self.attribute_list = list(newData[0])
+            del newData[0]
+            self.data = list(newData)
+
+            # ## Old way
+            # i = 0
+            # for line in csvfile:
+            #     if (i == 0):
+            #         self.attribute_list = line.split(',')
+            #     else:
+            #         self.data.append(line.split(','))
+            #     i = i + 1
         return {'attributes': self.attribute_list, 'data': self.data}
 
 # class dataSet:
