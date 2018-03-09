@@ -155,8 +155,9 @@ class dataSet:
             array_collection[attribute_key].append(newRow)
         for sortedAttribute in array_collection:
             # print(array_collection[sortedAttribute])
+            dsLabel = self.attributes[aIndex] + '=' + sortedAttribute + '?'
             dSet = dataSet(
-                array_collection[sortedAttribute], newAttributes, sortedAttribute)
+                array_collection[sortedAttribute], newAttributes, dsLabel)
             # print(dSet.getTuples())
             dset_collection.append(dSet)
         return dset_collection
